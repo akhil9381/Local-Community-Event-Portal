@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <!-- header section -->
+    <header>
+        <h1>Local Community Event Portal</h1>
+    </header>
+    <!-- navigation section -->
+    <nav>
+        <section id="home">
+        <a href="index.html">Home</a>
+        </section>
+        <section id="login">
+            <a href="login.html">Login</a>
+        </section>
+        <section id="register">
+            <a href="register.html">Register</a>
+        </section>
+    </nav>
+    <main>
+        <h2>Create Your Account</h2>
+        <p>Join our community today and never miss an event! Register below to get started.</p>
+        
+        <form action="login.html">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmpassword">Confirm Password</label>
+                <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms" style="display: inline; margin-left: 5px;">I agree to the Terms and Conditions</label>
+            </div>
+
+            <button type="submit">Register</button>
+            <button type="reset">Clear</button>
+        </form>
+
+        <section id="register-links">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </section>
+    </main>
+    <footer>
+        All rights registered | &copy; 2024 Local Community Event Portal
+    </footer>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Feedback Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Local Community Event Portal</h1>
+    </header>
+    <nav>
+        <a href="dashboard.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+        <a href="help.html" target="_blank">Help</a>
+        <a href="logout.html">Logout</a>
+    </nav>
+
+    <main>
+        <h2>Event Feedback & Registration Form</h2>
+        <p>Please provide your feedback and register for upcoming events.</p>
+
+        <form id="feedbackForm">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <!-- Phone Number Field with onblur validation -->
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="Enter 10-digit phone number"
+                    onblur="validatePhoneNumber()"
+                    required>
+                <span class="error" id="phoneError">Please enter a valid 10-digit phone number</span>
+                <span class="success" id="phoneSuccess"></span>
+            </div>
+
+            <!-- Event Dropdown with onchange -->
+            <div class="form-group">
+                <label for="event">Select Event:</label>
+                <select id="event" name="event" onchange="displayEventFee()" required>
+                    <option value="">-- Choose an Event --</option>
+                    <option value="summer-festival">Summer Festival</option>
+                    <option value="community-cleanup">Community Cleanup</option>
+                    <option value="sports-day">Sports Day</option>
+                    <option value="cultural-show">Cultural Show</option>
+                    <option value="workshop">Workshop</option>
+                </select>
+                <div class="fee-display" id="feeDisplay">
+                    <strong>Event Fee:</strong> <span id="feeAmount"></span>
+                </div>
+            </div>
+
+            <!-- Event Image with ondblclick to enlarge -->
+            <div class="form-group">
+                <label>Event Image (Double-click to enlarge):</label>
+                <div class="image-container">
+                    <img 
+                        id="eventImage" 
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23ddd' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' fill='%23999' font-size='18'%3EDouble-click to enlarge%3C/text%3E%3C/svg%3E" 
+                        alt="Event Image" 
+                        class="event-image"
+                        ondblclick="toggleImageSize()"
+                        title="Double-click to enlarge/shrink">
+                </div>
+            </div>
+
+            <!-- Feedback Textarea with keyboard events and character count -->
+            <div class="form-group">
+                <label for="feedback">Your Feedback (Character Counter):</label>
+                <textarea 
+                    id="feedback" 
+                    name="feedback" 
+                    rows="6" 
+                    placeholder="Type your feedback here..."
+                    onkeyup="countCharacters()"
+                    onkeydown="handleKeyDown(event)"
+                    required></textarea>
+                <div class="char-count">
+                    Characters: <span id="charCount">0</span> / 500
+                    <span id="remainingChars"></span>
+                </div>
+            </div>
+
+            <!-- Submit Button with onclick confirmation -->
+            <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+        </form>
+
+        <!-- Confirmation Message -->
+        <div class="confirmation" id="confirmationMessage">
+            <h3>✓ Form Submitted Successfully!</h3>
+            <p>Thank you for your feedback. We appreciate your participation!</p>
+            <p id="submittedData"></p>
+        </div>
+    </main>
+
+    <footer>
+        All rights registered
+    </footer>
+
+    <script>
+        // Phone Number Validation (onblur event)
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            const phoneSuccess = document.getElementById('phoneSuccess');
+            const phonePattern = /^\d{10}$/;
+
+            if (phonePattern.test(phoneInput.value)) {
+                phoneError.style.display = 'none';
+                phoneSuccess.textContent = '✓ Valid phone number';
+                phoneSuccess.style.color = 'green';
+                phoneInput.style.borderColor = '#4CAF50';
+            } else if (phoneInput.value === '') {
+                phoneError.style.display = 'none';
+                phoneSuccess.textContent = '';
+                phoneInput.style.borderColor = '#ccc';
+            } else {
+                phoneError.style.display = 'block';
+                phoneSuccess.textContent = '';
+                phoneInput.style.borderColor = '#f44336';
+            }
+        }
+
+        // Event Fee Display (onchange event)
+        function displayEventFee() {
+            const eventSelect = document.getElementById('event');
+            const feeDisplay = document.getElementById('feeDisplay');
+            const feeAmount = document.getElementById('feeAmount');
+
+            const eventFees = {
+                'summer-festival': '$15',
+                'community-cleanup': 'Free',
+                'sports-day': '$20',
+                'cultural-show': '$25',
+                'workshop': '$30'
+            };
+
+            if (eventSelect.value) {
+                feeAmount.textContent = eventFees[eventSelect.value];
+                feeDisplay.style.display = 'block';
+            } else {
+                feeDisplay.style.display = 'none';
+            }
+        }
+
+        // Toggle Image Size (ondblclick event)
+        function toggleImageSize() {
+            const eventImage = document.getElementById('eventImage');
+            eventImage.classList.toggle('enlarged-image');
+            
+            if (eventImage.classList.contains('enlarged-image')) {
+                eventImage.style.cursor = 'zoom-out';
+            } else {
+                eventImage.style.cursor = 'zoom-in';
+            }
+        }
+
+        // Character Counter (onkeyup event)
+        function countCharacters() {
+            const textarea = document.getElementById('feedback');
+            const charCount = document.getElementById('charCount');
+            const remainingChars = document.getElementById('remainingChars');
+            const maxChars = 500;
+            const count = textarea.value.length;
+
+            charCount.textContent = count;
+
+            if (count > maxChars) {
+                textarea.value = textarea.value.substring(0, maxChars);
+                charCount.textContent = maxChars;
+            } else {
+                const remaining = maxChars - count;
+                if (remaining <= 50) {
+                    remainingChars.textContent = `(${remaining} characters remaining)`;
+                    remainingChars.style.color = '#ff9800';
+                } else {
+                    remainingChars.textContent = '';
+                }
+            }
+        }
+
+        // Handle Key Down Events
+        function handleKeyDown(event) {
+            // Log specific key combinations
+            if (event.ctrlKey && event.key === 'Enter') {
+                submitFeedback();
+            }
+            // Prevent Tab key from moving focus (for demonstration)
+            // Uncomment if needed: if (event.key === 'Tab') event.preventDefault();
+        }
+
+        // Submit Form with Confirmation (onclick event)
+        function submitFeedback() {
+            const form = document.getElementById('feedbackForm');
+            const nameInput = document.getElementById('name');
+            const phoneInput = document.getElementById('phone');
+            const eventSelect = document.getElementById('event');
+            const feedbackTextarea = document.getElementById('feedback');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const submittedData = document.getElementById('submittedData');
+
+            // Validation
+            if (!nameInput.value || !phoneInput.value || !eventSelect.value || !feedbackTextarea.value) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (!/^\d{10}$/.test(phoneInput.value)) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+
+            // Show confirmation with submitted data
+            submittedData.innerHTML = `
+                <strong>Submitted Information:</strong><br>
+                Name: ${nameInput.value}<br>
+                Phone: ${phoneInput.value}<br>
+                Event: ${eventSelect.options[eventSelect.selectedIndex].text}<br>
+                Feedback: ${feedbackTextarea.value.substring(0, 100)}...
+            `;
+            confirmationMessage.style.display = 'block';
+
+            // Scroll to confirmation
+            confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                form.reset();
+                confirmationMessage.style.display = 'none';
+                document.getElementById('feeDisplay').style.display = 'none';
+                document.getElementById('charCount').textContent = '0';
+                document.getElementById('remainingChars').textContent = '';
+            }, 3000);
+        }
+
+        // Add initial focus handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const formInputs = document.querySelectorAll('input, select, textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    console.log('Focused on: ' + this.name);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

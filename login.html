@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <!-- header section -->
+    <header>
+        <h1>Local Community Event Portal</h1>
+    </header>
+    <!-- navigation section -->
+    <nav>
+        <section id="home">
+        <a href="index.html">Home</a>
+        </section>
+        <section id="login">
+            <a href="login.html">Login</a>
+        </section>
+        <section id="register">
+            <a href="register.html">Register</a>
+        </section>
+    </nav>
+    <main>
+        <h2>User Login</h2>
+        <p>Welcome back! Please login to your account to access exclusive event details and manage your registrations.</p>
+        
+        <form action="dashboard.html">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember" style="display: inline; margin-left: 5px;">Remember me</label>
+            </div>
+            
+            <button type="submit">Login</button>
+            <button type="reset">Clear</button>
+        </form>
+
+        <section id="login-links">
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p><a href="#">Forgot your password?</a></p>
+        </section>
+    </main>
+    <footer>
+        All rights registered | &copy; 2024 Local Community Event Portal
+    </footer>
+</body>
+</html>
