@@ -23,7 +23,7 @@
             <a href="register.html">Register</a>
         </section>
     </nav>
-    <main>
+    <main class="card">
         <h2>User Login</h2>
         <p>Welcome back! Please login to your account to access exclusive event details and manage your registrations.</p>
         
@@ -36,19 +36,15 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            
-            <div class="form-group">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember" style="display: inline; margin-left: 5px;">Remember me</label>
-            </div>
-            
-            <button type="submit">Login</button>
+            </div>            
+            <div class="button-group">
+                <button type="submit">Login</button>
             <button type="reset">Clear</button>
+            </div>
         </form>
 
         <section id="login-links">
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p>Don't have an account?</p> <a href="register.html">Register here</a>
             <p><a href="#">Forgot your password?</a></p>
         </section>
     </main>
